@@ -1,0 +1,41 @@
+<div class="container"> 
+  <div class="col-sm-4 col-md-4 col-lg-4 mb-4"> 
+    <label>Genres</label> 
+    <select class="form-control form-control-lg" id="idGen" name="idGen" 
+            [(ngModel)]="idGenre" (change)="onChange()">         
+      <option *ngFor="let cat of genres" value="{{cat.idGen}}">    
+        {{cat.nomGen}} 
+      </option>    
+    </select>                      
+  </div> 
+  
+  <div class="card shadow mb-4">                    
+    <div class="card-body">  
+      <table class="table table-striped"> 
+        <thead>
+          <tr> 
+            <th>Id</th>
+            <th>Nom</th> 
+            <th>Description</th>  
+            <th>Date Fondation</th>
+            <th>Genre</th>
+            <th>Actions</th>
+          </tr> 
+        </thead>
+        <tbody>
+          <tr *ngFor="let sport of sports"> 
+            <td>{{sport.idSport}}</td> 
+            <td>{{sport.nomSport}}</td> 
+            <td>{{sport.description}}</td> 
+            <td>{{sport.dateFondation | date:'dd/MM/yyyy'}}</td> 
+            <td>{{sport.genre.nomGen}}</td>
+            <td>
+              <a class="btn btn-danger" (click)="supprimerSport(sport)">Supprimer</a>
+              <a class="btn btn-success" [routerLink]="['/updateSport', sport.idSport]">Modifier</a>
+            </td>  
+          </tr>                                     
+        </tbody> 
+      </table> 
+    </div> 
+  </div> 
+</div>

@@ -1,0 +1,42 @@
+<div class="container"> 
+  <!-- <form class="form-inline">      
+      <div class="form-group mx-sm-3 mb-2 mt-2 "> 
+          <label>Nom Sport</label> 
+    <input type="text" class="form-control" [(ngModel)]="nomSport" name="nomSport" class="form-control"> 
+    <button type="submit" (click)="rechercherSport()" class="btn btn-primary mb-2 ml-2">Rechercher</button> 
+        </div> 
+    </form>    -->
+    <!-- <form class="form-inline">      
+      <div class="form-group mx-sm-3 mb-2 mt-2 "> 
+          <label>Nom Sport en tapant</label> 
+          <input class="form-control"  #searchTerm (keyup)="onKeyUp(searchTerm.value)"> 
+      </div> 
+  </form> -->
+
+  <form class="form-inline">      
+      <div class="form-group mx-sm-3 mb-2 mt-2 "> 
+          <label>Nom Sport en tapant</label> 
+  <input #nom [(ngModel)]="searchTerm"  name="searchTerm" class="form-control" >  
+      </div> 
+</form> 
+
+
+  <div class="card shadow mb-4">                    
+    <div class="card-body">  
+     <table class="table table-striped"> 
+        <tr> <th>Id</th><th>Nom</th> <th>Description</th>  <th>Date Fondation</th><th>Genre</th> </tr> 
+              <tbody *ngFor="let sport of sports | searchFilter: searchTerm "> 
+                       <tr > 
+                          <td>{{sport.idSport}}</td> 
+                          <td>{{sport.nomSport}}</td> 
+                          <td>{{sport.description}}</td> 
+                          <td>{{sport.dateFondation | date:'dd/MM/yyyy'}}</td> 
+                          <td>{{sport.genre.nomGen}}</td>
+                          <td><a class="btn btn-danger" (click)="supprimerSport(sport)">Supprimer</a></td> 
+                          <td><a class="btn btn-success" [routerLink]="['/updateSport',sport.idSport]">Modifier</a></td>  
+                        </tr>                                     
+               </tbody> 
+    </table> 
+    </div> 
+  </div> 
+</div> 
