@@ -10,7 +10,7 @@ import { SportService } from '../services/sport.service';
 export class ListeGenreComponent  implements OnInit{
 
   genres!: Genre[];
-  updateGen:Genre = {"idGen":0,"nomGen":""}; 
+  updatedGen:Genre = {"idGen":0,"nomGen":""}; 
   ajout:boolean=true;
 
 
@@ -27,19 +27,17 @@ export class ListeGenreComponent  implements OnInit{
     }); 
     } 
 
-    updateGenr(cat:Genre) {
-      this.updateGen=cat;
+    genreUpdated(cat: Genre){ 
+      this.sportService.ajouterGenre(cat).subscribe( ()=> this.chargerGenres());
+
+    }
+
+    updateGen(cat:Genre) {
+      this.updatedGen=cat;
       this.ajout=false;  
     }
 
-    genreUpdated(event: any){ 
-      if (event && event instanceof Genre) {
-        console.log("Genre updated event", event); 
-        this.sportService.ajouterGenre(event).subscribe(() => this.chargerGenres());
-      } else {
-        console.error("Invalid event type", event);
-      }
-    }
+    
     
     
     supprimerGenre(cat : Genre) {

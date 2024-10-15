@@ -13,7 +13,7 @@
 
                             <td><a *ngIf="authService.isAdmin()"  
                               class="btn btn-danger" (click)="supprimerSport(sport)">Supprimer</a></td> 
-                              <td><a *ngIf="authService.isAdmin()" class="btn btn success" [routerLink]="['/updateSport',sport.idSport]">Modifier</a></td>
+                              <td><a *ngIf="authService.isAdmin()" class="btn btn-success" [routerLink]="['/updateSport',sport.idSport]">Modifier</a></td>
                           </tr>                                     
                  </tbody> 
       </table> 

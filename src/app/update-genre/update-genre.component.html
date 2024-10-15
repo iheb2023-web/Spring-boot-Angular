@@ -1,7 +1,7 @@
 <form> 
     <div  [hidden]="ajout" > 
     <label>ID Genre</label> 
-    <input type="text" [(ngModel)]="genre.idGen" name="idGenre" class="form-control w-25"> 
+    <input type="text" [readonly]="!ajout" [(ngModel)]="genre.idGen" name="idGenre" class="form-control w-25"> 
     </div> 
     <div> 
     <label>Nom Genre</label> 

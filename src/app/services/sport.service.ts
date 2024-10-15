@@ -4,6 +4,7 @@ import { Genre } from '../model/genre.model';
 import { Observable } from 'rxjs'; 
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
 import { GenreWrapped } from '../model/GenreWrapped.model';
+import { AuthService } from './auth.service';
 
 const httpOptions = { 
   headers: new HttpHeaders( {'Content-Type': 'application/json'} ) 
@@ -17,32 +18,55 @@ export class SportService {
   apiURL: string = 'http://localhost:8081/sports/api'; 
   apiURLGen: string = 'http://localhost:8081/sports/gen';
 
- constructor(private http : HttpClient) { 
+ constructor(private http : HttpClient ,private authService: AuthService) { 
     
    } 
-  listeSport(): Observable<sport[]>{ 
-    return this.http.get<sport[]>(this.apiURL); 
-  } 
+   listeSport(): Observable<sport[]>{
+    // let jwt = this.authService.getToken();
+    // jwt = "Bearer "+jwt;
+    // let httpHeaders = new HttpHeaders({"Authorization":jwt})
+    return this.http.get<sport[]>(this.apiURL+"/all");
+    }
+
+
   ajouterSport(sp:sport):Observable<sport>{
-    return this.http.post<sport>(this.apiURL,sp,httpOptions);
+    let jwt = this.authService.getToken();
+    jwt = "Bearer "+jwt;
+    let httpHeaders = new HttpHeaders({"Authorization":jwt})
+  return this.http.post<sport>(this.apiURL+"/addsport", sp, {headers:httpHeaders})
   }
+
+
   supprimerSport(id : number){
-    const url = `${this.apiURL}/${id}`;
-    return this.http.delete(url,httpOptions);
+    const url = `${this.apiURL}/delsport/${id}`;
+    let jwt = this.authService.getToken();
+    jwt = "Bearer "+jwt;
+    let httpHeaders = new HttpHeaders({"Authorization":jwt})
+  return this.http.delete(url, {headers:httpHeaders});
   }
   
   consulterSport(id :null):Observable<sport>
 {
-  const url = `${this.apiURL}/${id}`; 
-  return this.http.get<sport>(url); 
+  const url = `${this.apiURL}/getbyid/${id}`;
+  let jwt = this.authService.getToken();
+  jwt = "Bearer "+jwt;
+  let httpHeaders = new HttpHeaders({"Authorization":jwt})
+return this.http.get<sport>(url,{headers:httpHeaders});
 }
 
 updateSport(sp: sport) : Observable<sport>{
-  return this.http.put<sport>(this.apiURL, sp, httpOptions);
-}
+  let jwt = this.authService.getToken();
+  jwt = "Bearer "+jwt;
+  let httpHeaders = new HttpHeaders({"Authorization":jwt})
+  return this.http.put<sport>(this.apiURL+"/updatesport", sp, {headers:httpHeaders});}
+
+
 listeGenre():Observable<GenreWrapped>{
-  return this.http.get<GenreWrapped>(this.apiURLGen);
-}
+  let jwt = this.authService.getToken();
+  jwt = "Bearer "+jwt;
+  let httpHeaders = new HttpHeaders({"Authorization":jwt})
+  return this.http.get<GenreWrapped>(this.apiURLGen,{headers:httpHeaders}
+  );}
 
 ajouterGenre( cat: Genre):Observable<Genre>{ 
   return this.http.post<Genre>(this.apiURLGen, cat, httpOptions); 
@@ -54,7 +78,7 @@ ajouterGenre( cat: Genre):Observable<Genre>{
     } 
 
 
-rechercherParGenre(idGen: number):Observable< sport[]> { 
+  rechercherParGenre(idGen: number):Observable< sport[]> { 
   const url = `${this.apiURL}/sportsgen/${idGen}`; 
   return this.http.get<sport[]>(url); 
     } 

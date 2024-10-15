@@ -8,21 +8,18 @@ import { Genre } from '../model/genre.model';
 })
 export class UpdateGenreComponent {
 
-  @Input()
-  genre!: Genre;
+  @Input() genre!: Genre;
+  @Input() ajout!: boolean;
 
-  @Input() 
-  ajout!:boolean;
+  @Output() genreUpdated = new EventEmitter<Genre>();  // Renommé ici
 
-  @Output()  
-  genreUpdate = new EventEmitter<Genre>();
+  constructor() { }
 
-  saveGenre(){ 
-    this.genreUpdate.emit(this.genre); 
-    }
+  saveGenre() { 
+    this.genreUpdated.emit(this.genre);  // Renommé ici aussi
+  }
 
   ngOnInit(): void { 
-    console.log("ngOnInit du composant UpdateCategorie ",this.genre); 
-    } 
-
+    console.log("ngOnInit du composant UpdateCategorie", this.genre); 
+  } 
 }
