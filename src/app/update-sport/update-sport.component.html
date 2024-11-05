@@ -1,68 +1,100 @@
 <div class="container">
-    <div>
-      <h2>Modifier un Sport :</h2>
-    </div>
-    <form>
-      <div class="form-group row">
-        <div class="col-sm-2">
-          <label for="idSport">ID Sport</label>
-          <input readonly
-            type="text"
-            id="idSport"
-            [(ngModel)]="currentSport.idSport"
-            name="idSport"
-            class="form-control"
-          />
-        </div>
-  
-        <div class="col-sm-4">
-          <label for="nomSport">Nom Sport</label>
-          <input
-            type="text"
-            id="nomSport"
-            [(ngModel)]="currentSport.nomSport"
-            name="nomSport"
-            class="form-control"
-          />
-        </div>
-  
-        <div class="col-sm-4">
-          <label for="descriptionSport">Description Sport</label>
-          <input
-            type="text"
-            id="descriptionSport"
-            [(ngModel)]="currentSport.description"
-            name="descriptionSport"
-            class="form-control"
-          />
-        </div>
-  
-        <div class="col-sm-4">
-          <label for="dateFondation">Date Fondation</label>
-          <input
-            type="date"
-            id="dateFondation"
-            [ngModel]="currentSport.dateFondation | date: 'yyyy-MM-dd'"
-            (ngModelChange)="currentSport.dateFondation = $event"
-            name="dateFondation"
-            class="form-control"
-          />
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4"> 
-            <select class="form-control form-control-lg" id="idGen" name="idGen"    
-            [(ngModel)]="updateGenId">         
-            <option *ngFor="let cat of genres" [value]="cat.idGen" >    
-            {{cat.nomGen}} 
-            </option> 
-            </select>                      
-            </div> 
+  <div>
+    <h2>Modifier un Sport :</h2>
+  </div>
+  <form>
+    <!-- ID Sport -->
+    <div class="form-group row">
+      <label for="idSport" class="col-sm-2 col-form-label">ID Sport</label>
+      <div class="col-sm-10">
+        <input readonly type="text" id="idSport" [(ngModel)]="currentSport.idSport" name="idSport"
+          class="form-control" />
       </div>
-  
-      <div class="mt-2">
+    </div>
+
+    <!-- Nom Sport -->
+    <div class="form-group row">
+      <label for="nomSport" class="col-sm-2 col-form-label">Nom Sport</label>
+      <div class="col-sm-10">
+        <input type="text" id="nomSport" [(ngModel)]="currentSport.nomSport" name="nomSport" class="form-control" />
+      </div>
+    </div>
+
+    <!-- Description Sport -->
+    <div class="form-group row">
+      <label for="descriptionSport" class="col-sm-2 col-form-label">Description Sport</label>
+      <div class="col-sm-10">
+        <input type="text" id="descriptionSport" [(ngModel)]="currentSport.description" name="descriptionSport"
+          class="form-control" />
+      </div>
+    </div>
+
+    <!-- Date Fondation -->
+    <div class="form-group row">
+      <label for="dateFondation" class="col-sm-2 col-form-label">Date Fondation</label>
+      <div class="col-sm-10">
+        <input type="date" id="dateFondation" [ngModel]="currentSport.dateFondation | date: 'yyyy-MM-dd'"
+          (ngModelChange)="currentSport.dateFondation = $event" name="dateFondation" class="form-control" />
+      </div>
+    </div>
+
+    <!-- Genre -->
+    <div class="form-group row">
+      <label for="idGen" class="col-sm-2 col-form-label">Genre</label>
+      <div class="col-sm-10">
+        <select class="form-control" id="idGen" name="idGen" [(ngModel)]="updateGenId">
+          <option *ngFor="let cat of genres" [value]="cat.idGen">
+            {{cat.nomGen}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Image Upload -->
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Image :</label>
+      <div class="col-sm-10">
+        <input type="file" (change)="onImageUpload($event)" class="form-control" />
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <button type="submit" (click)="onAddImageProduit()" class="btn
+      btn-success">Ajouter Image</button>
+    </div>
+
+    <!-- Image Preview -->
+    <div class="col-sm-16 col-md-16 col-lg-16">
+      <img [src]="myImage" class="card-img-top img-fluid rounded-start" style="width: 500px; height: 300px" />
+    </div>
+
+    <div class="card shadow mb-4">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Images</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let img of currentSport.images">
+            <tr>
+              <td><img class="card-img-top img-responsive" src="{{'data:' + img.type + ';base64,' + img.image}}"
+                  style="height :50px;width:100px"></td>
+              <td style="width:20%" ><a class="btn btn-danger"
+                    (click)="supprimerImage(img)">Supprimer</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group row">
+      <div class="col-sm-10 offset-sm-2">
         <button type="submit" (click)="updateSport()" class="btn btn-success">
           Modifier
         </button>
       </div>
-    </form>
-  </div>
-  
+    </div>
+  </form>
+</div>

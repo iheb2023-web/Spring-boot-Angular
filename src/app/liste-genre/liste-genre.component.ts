@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Genre } from '../model/genre.model';
 import { SportService } from '../services/sport.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-liste-genre',
@@ -14,7 +15,7 @@ export class ListeGenreComponent  implements OnInit{
   ajout:boolean=true;
 
 
-  constructor(private sportService : SportService) { } 
+  constructor(private sportService : SportService, public authService: AuthService) { } 
 
   ngOnInit(): void {
     this.chargerGenres();

@@ -1,4 +1,7 @@
 import { Genre } from "./genre.model";
+import { Image } from "./Image.model";
+
+
 
 export class sport{
     idSport! : number;
@@ -6,4 +9,6 @@ export class sport{
     description?: string;
     dateFondation?: Date;
     genre!: Genre;
+    images! : Image[];
+    imageStr!:string;
 }

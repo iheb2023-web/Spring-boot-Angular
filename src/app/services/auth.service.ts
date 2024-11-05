@@ -11,11 +11,9 @@ export class AuthService {
 
   apiURL: string = 'http://localhost:8082/users';
   token!:string;
+  public regitredUser : User = new User(); 
 
 
-
-  /*users: User[] = [{"username":"admin","password":"123","roles":['ADMIN']},
-                   {"username":"iheb","password":"123","roles":['USER']} ];*/
 
 public loggedUser!:string;
 public isloggedIn: Boolean = false;
@@ -61,22 +59,6 @@ return this.helper.isTokenExpired(this.token); }
    
 
 
-
-  /*SignIn(user: User): Boolean {
-    let validUser: Boolean = false;
-    this.users.forEach((curUser) => {
-      if (user.username == curUser.username && user.password == curUser.password) {
-        validUser = true;
-        this.loggedUser = curUser.username;
-        this.isloggedIn = true;
-        this.roles = curUser.roles;
-        localStorage.setItem('loggedUser', this.loggedUser);
-        localStorage.setItem('isloggedIn', String(this.isloggedIn));
-      }
-    });
-    return validUser;
-  }*/
-
     isAdmin():Boolean{
       if (!this.roles)
       return false;
@@ -98,12 +80,23 @@ return this.helper.isTokenExpired(this.token); }
     this.isloggedIn = true;
     //this.getUserRoles(login);
   }
-  /*getUserRoles(username: string) {
-    this.users.forEach((curUser) => {
-      if (curUser.username == username) {
-        this.roles = curUser.roles;
-      }
-    });
-  }*/
+
+  registerUser(user :User){ 
+    return this.http.post<User>(this.apiURL+'/register', user, 
+    {observe:'response'}); 
+  } 
+
+  setRegistredUser(user : User){ 
+    this.regitredUser=user; 
+  } 
+   
+  getRegistredUser(){ 
+    return this.regitredUser; 
+  }
+
+  validateEmail(code : string){ 
+    return this.http.get<User>(this.apiURL+'/verifyEmail/'+code); 
+  }
+
     
 }

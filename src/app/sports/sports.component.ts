@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { sport } from '../model/sport.model';
 import { SportService } from '../services/sport.service';
 import { AuthService } from '../services/auth.service';
+import { Image } from '../model/Image.model';
 
 @Component({
   selector: 'app-sports',
@@ -9,16 +10,28 @@ import { AuthService } from '../services/auth.service';
   styleUrl: './sports.component.css'
 })
 export class SportsComponent implements OnInit{
-  sports ?: sport[];
+  apiurl:string='http://localhost:8081/sports/api';
 
+  sports ?: sport[];
+  imageStr!:string;
+  
   constructor( private sportService: SportService, public authService: AuthService){}
    
-  chargerSports(){ 
-      this.sportService.listeSport().subscribe(prods => { 
-        console.log(prods); 
-        this.sports = prods; 
-      });  
-    } 
+  // chargerSports(){ 
+  //     this.sportService.listeSport().subscribe(prods => { 
+  //       console.log(prods); 
+  //       this.sports = prods; 
+  //     this.sports.forEach((prod) => {
+  //         prod.imageStr = 'data:' + prod.images[0].type + ';base64,' +  prod.images[0].image;
+  //         });
+  //       });
+  //   } 
+
+  chargerSports(){
+    this.sportService.listeSport().subscribe(prods => {
+    this.sports = prods;
+    });
+    }
   
     supprimerSport(p: sport) 
       { 

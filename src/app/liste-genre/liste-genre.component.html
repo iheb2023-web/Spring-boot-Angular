@@ -1,7 +1,7 @@
  
 <div class="container"> 
 
-    <div class="col-sm-4 col-md-4 col-lg-4 mb-4">  
+    <div *ngIf="authService.isAdmin()"class="col-sm-4 col-md-4 col-lg-4 mb-4">  
         <app-update-genre  
             (genreUpdated)="genreUpdated($event)"
             [genre]="updatedGen"
@@ -18,8 +18,8 @@
     <tr> 
     <td>{{cat.idGen}}</td> 
     <td>{{cat.nomGen}}</td> 
-    <td><a class="btn btn-success"  (click)="updateGen(cat)">Editer</a></td> 
-    <td><a class="btn btn-danger" (click)="supprimerGenre(cat)">Supprimer</a></td> 
+    <td><a *ngIf="authService.isAdmin()" class="btn btn-success"  (click)="updateGen(cat)">Editer</a></td> 
+    <td><a  *ngIf="authService.isAdmin()" class="btn btn-danger" (click)="supprimerGenre(cat)">Supprimer</a></td> 
     </tr> 
     </tbody> 
     </table> 

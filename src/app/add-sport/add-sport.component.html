@@ -1,46 +1,115 @@
-<div class="container"> 
-    <div> 
-    <h2>Ajouter un Sport :</h2>              
-    </div> 
-    <form >  
-           
-        <div class="col-sm-2 col-md-2 col-lg-2"> 
-          <label >ID  Sport</label> 
-          <input  readonly type="text"  [(ngModel)]="newSport.idSport"   
-              name="idSport" class="form-control"> 
-         </div> 
-     
-        <div class="col-sm-4 col-md-4 col-lg-4" > 
-          <label >Nom Sport</label> 
-          <input  type="text"[(ngModel)]= "newSport.nomSport"   
-              name="nomSport" class="form-control"> 
-        </div> 
+<div class="container my-4">
+  <div class="mb-4">
+    <h2>Ajouter un Sport :</h2>
+  </div>
+  
+  <form>
+    <!-- ID Sport -->
+    <div class="form-group row mb-3">
+      <label for="idSport" class="col-sm-2 col-form-label">ID Sport</label>
+      <div class="col-sm-10">
+        <input
+          readonly
+          type="text"
+          id="idSport"
+          [(ngModel)]="newSport.idSport"
+          name="idSport"
+          class="form-control"
+        />
+      </div>
+    </div>
 
-        <div class="col-sm-2 col-md-2 col-lg-2"> 
-          <label >Description Sport</label> 
-          <input type="text"   [(ngModel)]= "newSport.description"   
-              name="descriptionSport" class="form-control"> 
-        </div> 
+    <!-- Nom Sport -->
+    <div class="form-group row mb-3">
+      <label for="nomSport" class="col-sm-2 col-form-label">Nom Sport</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          id="nomSport"
+          [(ngModel)]="newSport.nomSport"
+          name="nomSport"
+          class="form-control"
+        />
+      </div>
+    </div>
 
-        <div class="col-sm-4 col-md-4 col-lg-4"> 
-            <label >Date Fondation</label> 
-            <input type="date"  [(ngModel)]= "newSport.dateFondation"  
-                name="dateFondation" class="form-control"> 
-        </div> 
+    <!-- Description Sport -->
+    <div class="form-group row mb-3">
+      <label for="descriptionSport" class="col-sm-2 col-form-label">Description Sport</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          id="descriptionSport"
+          [(ngModel)]="newSport.description"
+          name="descriptionSport"
+          class="form-control"
+        />
+      </div>
+    </div>
 
-    <div class="col-sm-4 col-md-4 col-lg-4"> 
-     <label>Categorie</label> 
-   
-    <select class="form-control form-control-lg" id="idGen" name="idGen" 
-        [(ngModel)]="newIdGen">         
-         <option *ngFor="let cat of genres" [value]="cat.idGen" >    
-                 {{cat.nomGen}} 
-         </option> 
-   </select>                      
-</div> 
-          
-  <div class="mt-2"> 
-<button type="submit" (click)="addSport()"class="btn btn-success">Ajouter</button> 
-  </div>    
-    </form> 
-</div>        
+    <!-- Date Fondation -->
+    <div class="form-group row mb-3">
+      <label for="dateFondation" class="col-sm-2 col-form-label">Date Fondation</label>
+      <div class="col-sm-10">
+        <input
+          type="date"
+          id="dateFondation"
+          [(ngModel)]="newSport.dateFondation"
+          name="dateFondation"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <!-- Categorie -->
+    <div class="form-group row mb-3">
+      <label for="idGen" class="col-sm-2 col-form-label">Catégorie</label>
+      <div class="col-sm-10">
+        <select
+          class="form-control"
+          id="idGen"
+          name="idGen"
+          [(ngModel)]="newIdGen"
+        >
+          <option *ngFor="let cat of genres" [value]="cat.idGen">
+            {{ cat.nomGen }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Image Upload -->
+    <div class="form-group row mb-3">
+      <label class="col-sm-2 col-form-label">Image</label>
+      <div class="col-sm-10">
+        <input 
+          type="file" 
+          (change)="onImageUpload($event)"
+          name="logo" 
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <!-- Image Preview -->
+    <div class="form-group row mb-4">
+      <div class="col-sm-10 offset-sm-2">
+        <img 
+          [src]="imagePath" 
+          class="img-fluid rounded" 
+          style="width: 100%; max-width: 500px; height: auto;" 
+          alt="Image Preview"
+        />
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group row">
+      <div class="col-sm-10 offset-sm-2">
+        <button type="submit" (click)="addSport()" class="btn btn-success">
+          Ajouter
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

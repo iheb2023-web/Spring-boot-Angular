@@ -2,7 +2,7 @@
     <div class="card shadow mb-4">                    
       <div class="card-body">  
        <table class="table table-striped"> 
-          <tr> <th>Id</th><th>Nom</th> <th>Description</th>  <th>Date Fondation</th><th>Genre</th> </tr> 
+          <tr> <th>Id</th><th>Nom</th> <th>Description</th>  <th>Date Fondation</th><th>Genre</th> <th>Image</th></tr> 
                 <tbody *ngFor="let sport of sports"> 
                          <tr > 
                             <td>{{sport.idSport}}</td> 
@@ -10,6 +10,11 @@
                             <td>{{sport.description}}</td> 
                             <td>{{sport.dateFondation | date:'dd/MM/yyyy'}}</td> 
                             <td>{{sport.genre.nomGen}}</td>
+                            <td><img class="card-img-top img-responsive"
+                              src = "{{sport.imageStr}}"
+                              
+                              style = "height :50px;width:100px">
+                              </td>
 
                             <td><a *ngIf="authService.isAdmin()"  
                               class="btn btn-danger" (click)="supprimerSport(sport)">Supprimer</a></td> 
